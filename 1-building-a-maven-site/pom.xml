@@ -1,0 +1,157 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.mycompany</groupId>
+  <artifactId>test-java-build</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>test-java-build</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>2.5</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.3</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <version>2.7</version>
+        <reportSets>
+          <reportSet>
+            <id>cobertura</id>
+            <reports>
+              <report>cobertura</report>
+            </reports>
+            <configuration>
+              <formats>
+                <format>html</format>
+                <format>xml</format>
+              </formats>
+            </configuration>
+          </reportSet>
+        </reportSets>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.5</version>
+        <reportSets>
+          <reportSet>
+            <id>pmd-report</id>
+            <reports>
+              <report>pmd</report>
+            </reports>
+            <configuration>
+              <skipEmptyReport>false</skipEmptyReport>
+            </configuration>
+          </reportSet>
+
+          <reportSet>
+            <id>cpd-report</id>
+            <reports>
+              <report>cpd</report>
+            </reports>
+            <configuration>
+              <skipEmptyReport>false</skipEmptyReport>
+            </configuration>
+          </reportSet>
+        </reportSets>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>2.18.1</version>
+        <reportSets>
+          <reportSet>
+            <id>unit-tests</id>
+            <reports>
+              <report>report-only</report>
+            </reports>
+            <configuration>
+              <linkXRef>true</linkXRef>
+              <alwaysGenerateSurefireReport>true</alwaysGenerateSurefireReport>
+            </configuration>
+          </reportSet>
+        </reportSets>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>3.0.2</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jdepend-maven-plugin</artifactId>
+        <version>2.0</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>taglist-maven-plugin</artifactId>
+        <version>2.4</version>
+        <reportSets>
+          <reportSet>
+            <id>taglist-report</id>
+            <reports>
+              <report>taglist</report>
+            </reports>
+            <configuration>
+              <tagListOptions>
+                <tagClasses>
+                  <tagClass>
+                    <displayName>Todo Work</displayName>
+                    <tags>
+                      <tag>
+                        <matchString>todo</matchString>
+                        <matchType>ignoreCase</matchType>
+                      </tag>
+                      <tag>
+                        <matchString>FIXME</matchString>
+                        <matchType>exact</matchType>
+                      </tag>
+                    </tags>
+                  </tagClass>
+                  <tagClass>
+                    <displayName>Architecture Review Needed</displayName>
+                    <tags>
+                      <tag>
+                        <matchString>ARCH-REV</matchString>
+                        <matchType>exact</matchType>
+                      </tag>
+                    </tags>
+                  </tagClass>
+                </tagClasses>
+              </tagListOptions>
+            </configuration>
+          </reportSet>
+        </reportSets>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.16</version>
+      </plugin>
+    </plugins>
+  </reporting>
+</project>
+
