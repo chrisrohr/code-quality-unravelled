@@ -3,12 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.blog</groupId>
-  <artifactId>java-build-1</artifactId>
+  <artifactId>java-build-2</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
 
-  <name>java-build-1</name>
-  <url>http://localhost</url>
+  <name>java-build-2</name>
 
   <distributionManagement>
     <site>
@@ -17,6 +16,11 @@
       <name>Localhost</name>
     </site>
   </distributionManagement>
+
+  <modules>
+    <module>test-module1</module>
+    <module>test-module2</module>
+  </modules>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -48,9 +52,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>2.10.3</version>
-        <configuration>
-          <additionalparam>-Xdoclint:none</additionalparam>
-        </configuration>
       </plugin>
 
       <plugin>
@@ -64,6 +65,7 @@
               <report>cobertura</report>
             </reports>
             <configuration>
+              <aggregate>true</aggregate>
               <formats>
                 <format>html</format>
                 <format>xml</format>
@@ -89,11 +91,35 @@
           </reportSet>
 
           <reportSet>
+            <id>pmd-aggregate</id>
+            <inherited>false</inherited>
+            <reports>
+              <report>pmd</report>
+            </reports>
+            <configuration>
+              <aggregate>true</aggregate>
+              <skipEmptyReport>false</skipEmptyReport>
+            </configuration>
+          </reportSet>
+
+          <reportSet>
             <id>cpd-report</id>
             <reports>
               <report>cpd</report>
             </reports>
             <configuration>
+              <skipEmptyReport>false</skipEmptyReport>
+            </configuration>
+          </reportSet>
+
+          <reportSet>
+            <id>cpd-aggregate</id>
+            <inherited>false</inherited>
+            <reports>
+              <report>cpd</report>
+            </reports>
+            <configuration>
+              <aggregate>true</aggregate>
               <skipEmptyReport>false</skipEmptyReport>
             </configuration>
           </reportSet>
@@ -111,6 +137,19 @@
               <report>report-only</report>
             </reports>
             <configuration>
+              <linkXRef>true</linkXRef>
+              <alwaysGenerateSurefireReport>true</alwaysGenerateSurefireReport>
+            </configuration>
+          </reportSet>
+
+          <reportSet>
+            <id>unit-tests-aggregate</id>
+            <inherited>false</inherited>
+            <reports>
+              <report>report-only</report>
+            </reports>
+            <configuration>
+              <aggregate>true</aggregate>
               <linkXRef>true</linkXRef>
               <alwaysGenerateSurefireReport>true</alwaysGenerateSurefireReport>
             </configuration>
@@ -141,8 +180,43 @@
               <report>taglist</report>
             </reports>
             <configuration>
-              <xrefLocation>target/site/xref</xrefLocation>
-              <testXrefLocation>target/site/xref-test</testXrefLocation>
+              <tagListOptions>
+                <tagClasses>
+                  <tagClass>
+                    <displayName>Todo Work</displayName>
+                    <tags>
+                      <tag>
+                        <matchString>todo</matchString>
+                        <matchType>ignoreCase</matchType>
+                      </tag>
+                      <tag>
+                        <matchString>FIXME</matchString>
+                        <matchType>exact</matchType>
+                      </tag>
+                    </tags>
+                  </tagClass>
+                  <tagClass>
+                    <displayName>Architecture Review Needed</displayName>
+                    <tags>
+                      <tag>
+                        <matchString>ARCH-REV</matchString>
+                        <matchType>exact</matchType>
+                      </tag>
+                    </tags>
+                  </tagClass>
+                </tagClasses>
+              </tagListOptions>
+            </configuration>
+          </reportSet>
+
+          <reportSet>
+            <id>taglist-aggregate</id>
+            <inherited>false</inherited>
+            <reports>
+              <report>taglist</report>
+            </reports>
+            <configuration>
+              <aggregate>true</aggregate>
               <tagListOptions>
                 <tagClasses>
                   <tagClass>
@@ -178,12 +252,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>2.16</version>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>2.8</version>
       </plugin>
     </plugins>
   </reporting>
