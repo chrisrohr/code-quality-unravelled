@@ -8,6 +8,7 @@
   <packaging>pom</packaging>
 
   <name>java-build-3</name>
+  <url>http://localhost</url>
 
   <distributionManagement>
     <site>
